@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const testimonials = [
   {
@@ -36,81 +33,74 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
-  const sectionRef = useRef(null);
   const trackRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray(".testimonial-card");
+    const track = trackRef.current;
+    const totalWidth = track.scrollWidth / 2;
 
-      gsap.to(cards, {
-        xPercent: -100 * (cards.length - 1),
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => "+=" + trackRef.current.offsetWidth,
-        },
-      });
-    }, sectionRef);
+    const tween = gsap.to(track, {
+      x: -totalWidth,
+      duration: 25,
+      ease: "linear",
+      repeat: -1,
+    });
 
-    return () => ctx.revert();
+    // Pause on hover
+    track.addEventListener("mouseenter", () => tween.pause());
+    track.addEventListener("mouseleave", () => tween.resume());
+
+    return () => tween.kill();
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-light py-24 overflow-hidden">
+    <section className="py-24 bg-light overflow-hidden">
       {/* Heading */}
-      <div className="max-w-7xl mx-auto px-6 mb-16">
-        <h2 className="text-4xl font-bold text-primary text-center">
+      <div className="text-center mb-14">
+        <h2 className="text-4xl font-bold text-primary">
           What Our Clients Say
         </h2>
-        <p className="mt-4 text-gray-600 text-center max-w-2xl mx-auto">
+        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
           Real stories from people who trusted Dwello to find their perfect home.
         </p>
       </div>
 
-      {/* Horizontal Track */}
-      <div ref={trackRef} className="flex gap-10 px-10 w-max">
-        {testimonials.map((item, index) => (
-          <div
-            key={index}
-            className="testimonial-card w-[380px] bg-white p-8 rounded-2xl shadow-lg flex-shrink-0 cursor-pointer"
-            onMouseEnter={(e) =>
-              gsap.to(e.currentTarget, {
-                y: -10,
-                boxShadow: "0 30px 60px rgba(0,0,0,0.15)",
-                duration: 0.3,
-              })
-            }
-            onMouseLeave={(e) =>
-              gsap.to(e.currentTarget, {
-                y: 0,
-                boxShadow: "0 15px 30px rgba(0,0,0,0.1)",
-                duration: 0.3,
-              })
-            }
-          >
-            <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              “{item.quote}”
-            </p>
+      {/* Auto Scroll Track */}
+      <div className="relative overflow-hidden">
+        <div
+          ref={trackRef}
+          className="flex gap-8 w-max"
+        >
+          {[...testimonials, ...testimonials].map((item, index) => (
+            <div
+              key={index}
+              className="
+                w-[360px] bg-white p-8 rounded-2xl shadow-lg
+                flex-shrink-0
+                transition-transform duration-300
+                hover:-translate-y-2 hover:shadow-2xl
+              "
+            >
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                “{item.quote}”
+              </p>
 
-            <div className="flex items-center gap-4">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <div>
-                <h4 className="font-semibold text-primary text-sm">
-                  {item.name}
-                </h4>
-                <p className="text-xs text-gray-500">{item.role}</p>
+              <div className="flex items-center gap-4">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 className="font-semibold text-primary text-sm">
+                    {item.name}
+                  </h4>
+                  <p className="text-xs text-gray-500">{item.role}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

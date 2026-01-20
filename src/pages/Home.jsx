@@ -6,7 +6,7 @@ import PropertySupport from "../components/PropertySupport";
 import WhyChooseUs from "../components/WhyChooseUs";
 import PopularResidences from "../components/PopularResidences";
 import Testimonials from "../components/Testimonials";
-import CTA from "../components/CTA";
+import ContactCTA from "../components/ContactCTA";
 import Footer from "../components/Footer";
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
       <PropertySupport />
       <PopularResidences />
       <Testimonials />
-      <CTA />
+      <ContactCTA />
       <Footer />
     </>
   );

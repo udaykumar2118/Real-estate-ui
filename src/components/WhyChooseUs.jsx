@@ -4,39 +4,42 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const features = [
+const whyChooseData = [
+  {
+    title: "Verified Properties",
+    desc: "Legally verified homes ensuring secure and transparent investments.",
+    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994",
+  },
   {
     title: "Expert Guidance",
-    desc: "Our experienced agents provide expert guidance at every step to ensure a smooth and successful property journey.",
+    desc: "Professional advisors helping you choose the right home confidently.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
   },
   {
-    title: "Personalized Service",
-    desc: "We tailor our services to match your needs, preferences, and lifestyle for the perfect home match.",
-  },
-  {
-    title: "Trusted by Thousands",
-    desc: "Thousands of happy customers trust us for transparent deals and premium real-estate solutions.",
+    title: "End-to-End Support",
+    desc: "From site visits to registration, we manage everything smoothly.",
+    image: "https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12",
   },
 ];
 
 const WhyChooseUs = () => {
   const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
+  const itemsRef = useRef([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        cardsRef.current,
-        { y: 60, opacity: 0 },
+        itemsRef.current,
+        { y: 20, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power3.out",
+          duration: 0.8,
+          stagger: 0.16,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
+            start: "top 85%",
           },
         }
       );
@@ -46,51 +49,69 @@ const WhyChooseUs = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-light">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-primary">
-            Why Choose Us
-          </h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Discover why thousands of clients trust us to find their
-            perfect home with confidence and ease.
-          </p>
-        </div>
+    <section ref={sectionRef} className="py-24">
+      {/* OUTER PADDING (BOTH SIDES) */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="grid lg:grid-cols-2 w-full overflow-hidden">
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {features.map((item, index) => (
-            <div
-              key={index}
-              ref={(el) => (cardsRef.current[index] = el)}
-              className="bg-white p-8 rounded-2xl shadow-md transition-transform"
-              onMouseEnter={(e) =>
-                gsap.to(e.currentTarget, {
-                  y: -10,
-                  boxShadow:
-                    "0 20px 40px rgba(0,0,0,0.12)",
-                  duration: 0.3,
-                })
-              }
-              onMouseLeave={(e) =>
-                gsap.to(e.currentTarget, {
-                  y: 0,
-                  boxShadow:
-                    "0 10px 20px rgba(0,0,0,0.08)",
-                  duration: 0.3,
-                })
-              }
-            >
-              <h3 className="text-xl font-semibold text-primary mb-4">
-                {item.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {item.desc}
+          {/* LEFT PANEL */}
+          <div
+            className="
+              bg-[#233C3B] text-white flex items-center
+              px-10 py-20
+              rounded-tl-[56px] rounded-bl-[56px]
+            "
+          >
+            <div>
+              <h2 className="text-4xl font-bold leading-tight">
+                Why <br /> Choose Us?
+              </h2>
+              <p className="mt-5 text-white/80 max-w-xs text-sm leading-relaxed">
+                Trusted real estate solutions crafted around your lifestyle
+                and long-term value.
               </p>
             </div>
-          ))}
+          </div>
+
+          {/* RIGHT PANEL */}
+          <div className="bg-white flex items-center px-10 py-20
+            rounded-tr-[56px] rounded-br-[56px]"
+          >
+            <div className="w-full space-y-12">
+              {whyChooseData.map((item, index) => (
+                <div
+                  key={index}
+                  ref={(el) => (itemsRef.current[index] = el)}
+                  className="flex items-start gap-6"
+                >
+                  {/* IMAGE CIRCLE */}
+                  <div
+                    className="
+                      w-16 h-16 rounded-full overflow-hidden shadow-md
+                      transition-transform duration-500 hover:scale-105
+                    "
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* TEXT */}
+                  <div>
+                    <h3 className="text-lg font-semibold text-dark">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-600 max-w-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

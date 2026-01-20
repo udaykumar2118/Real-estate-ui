@@ -31,111 +31,93 @@ const residences = [
     ],
     imageSide: "right",
   },
-  {
-    title: "Spacious Family Home",
-    location: "Austin, Texas",
-    price: "$1,250,000",
-    desc: "A warm and spacious family home in a peaceful neighborhood, perfect for modern family living.",
-    features: ["4 Beds", "3 Baths", "3200 sqft"],
-    images: [
-      "https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12",
-      "https://images.unsplash.com/photo-1598928506311-c55ded91a20c",
-      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
-    ],
-    imageSide: "left",
-  },
+    {
+  title: "Beachfront Modern Bungalow",
+  location: "Santa Monica, California",
+  price: "$3,150,000",
+  desc: "A stunning beachfront bungalow featuring open-plan living, floor-to-ceiling glass walls, and uninterrupted ocean views.",
+  features: ["4 Beds", "4 Baths", "3800 sqft"],
+  images: [
+    "https://images.unsplash.com/photo-1507089947368-19c1da9775ae",
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750",
+    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
+  ],
+  imageSide: "right",
+},
+{
+  title: "Elegant Countryside Estate",
+  location: "Napa Valley, California",
+  price: "$2,980,000",
+  desc: "A peaceful countryside estate surrounded by vineyards, offering luxury interiors, private gardens, and timeless architecture.",
+  features: ["6 Beds", "5 Baths", "5200 sqft"],
+  images: [
+    "https://images.unsplash.com/photo-1600585154084-4e5fe7c39198",
+    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
+    "https://images.unsplash.com/photo-1600607687644-c7171b42498f",
+  ],
+  imageSide: "left",
+},
+
 ];
 
 const PopularResidences = () => {
   const sectionRef = useRef(null);
-  const itemRefs = useRef([]);
+  const imageRefs = useRef([]);
+  const textRefs = useRef([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      itemRefs.current.forEach((item, index) => {
-        const images = item.querySelectorAll(".res-image");
-        const content = item.querySelector(".res-content");
+      residences.forEach((item, index) => {
+        const baseIndex = index * 3;
 
-        const isLeft = residences[index].imageSide === "left";
+        const mainImage = imageRefs.current[baseIndex];
+        const img2 = imageRefs.current[baseIndex + 1];
+        const img3 = imageRefs.current[baseIndex + 2];
 
-        // 🔥 TIMELINE PER RESIDENCE
+        const fromX = item.imageSide === "left" ? -120 : 120;
+        const oppositeX = -fromX;
+
+        // TIMELINE PER CARD
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: item,
-            start: "top 75%",
+            trigger: mainImage,
+            start: "top 80%",
           },
         });
 
-        // Main image (edge slide)
-        tl.from(images[0], {
-          x: isLeft ? -320 : 320,
+        // MAIN IMAGE (edge slide)
+        tl.from(mainImage, {
+          x: fromX,
           opacity: 0,
-          scale: 0.92,
-          duration: 1.2,
+          duration: 1,
           ease: "power3.out",
         });
 
-        // Secondary images (opposite vertical offsets)
+        // SMALL IMAGES (opposite direction)
         tl.from(
-          images[1],
+          [img2, img3],
           {
-            y: 220,
+            x: oppositeX,
             opacity: 0,
-            scale: 0.9,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=0.9"
-        );
-
-        tl.from(
-          images[2],
-          {
-            y: -220,
-            opacity: 0,
-            scale: 0.9,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=0.8"
-        );
-
-        // Content stagger
-        tl.from(
-          content.children,
-          {
-            y: 30,
-            opacity: 0,
-            stagger: 0.12,
+            stagger: 0.15,
             duration: 0.8,
-            ease: "power2.out",
+            ease: "power3.out",
           },
           "-=0.6"
         );
 
-        // 🔄 HORIZONTAL PARALLAX (opposite direction)
-        images.forEach((img, i) => {
-          const strength = i === 0 ? 40 : 25;
-          const direction =
-            i % 2 === 0
-              ? isLeft
-                ? -strength
-                : strength
-              : isLeft
-              ? strength
-              : -strength;
-
-          gsap.to(img, {
-            x: direction,
-            ease: "none",
-            scrollTrigger: {
-              trigger: item,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            },
-          });
-        });
+        // TEXT
+        tl.from(
+          textRefs.current[index].children,
+          {
+            y: 20,
+            opacity: 0,
+            stagger: 0.12,
+            duration: 0.7,
+            ease: "power2.out",
+          },
+          "-=0.5"
+        );
       });
     }, sectionRef);
 
@@ -145,6 +127,7 @@ const PopularResidences = () => {
   return (
     <section ref={sectionRef} className="py-32 bg-light">
       <div className="max-w-7xl mx-auto px-6">
+
         {/* Heading */}
         <div className="text-center mb-28">
           <h2 className="text-4xl md:text-5xl font-bold text-primary">
@@ -157,12 +140,11 @@ const PopularResidences = () => {
         </div>
 
         {/* Residences */}
-        <div className="space-y-36">
+        <div className="space-y-28">
           {residences.map((item, index) => (
             <div
               key={index}
-              ref={(el) => (itemRefs.current[index] = el)}
-              className="grid lg:grid-cols-2 gap-20 items-center"
+              className="grid lg:grid-cols-2 gap-12 items-center"
             >
               {/* Images */}
               <div
@@ -170,36 +152,29 @@ const PopularResidences = () => {
                   item.imageSide === "right" ? "lg:order-2" : ""
                 }`}
               >
-                <div className="res-image col-span-2 rounded-3xl overflow-hidden shadow-2xl">
-                  <img
-                    src={item.images[0]}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="res-image rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={item.images[1]}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="res-image rounded-2xl overflow-hidden shadow-xl">
-                  <img
-                    src={item.images[2]}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                {item.images.map((img, i) => (
+                  <div
+                    key={i}
+                    ref={(el) =>
+                      (imageRefs.current[index * 3 + i] = el)
+                    }
+                    className={`overflow-hidden rounded-3xl shadow-xl ${
+                      i === 0 ? "col-span-2" : ""
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
               </div>
 
-              {/* Content */}
+              {/* Text */}
               <div
-                className={`res-content ${
-                  item.imageSide === "right" ? "lg:order-1" : ""
-                }`}
+                ref={(el) => (textRefs.current[index] = el)}
+                className={`${item.imageSide === "right" ? "lg:order-1" : ""}`}
               >
                 <h3 className="text-3xl font-bold text-primary">
                   {item.title}
@@ -207,12 +182,11 @@ const PopularResidences = () => {
                 <p className="mt-2 text-sm text-gray-500">
                   {item.location}
                 </p>
-
-                <p className="mt-6 text-gray-600 leading-relaxed max-w-md">
+                <p className="mt-6 text-gray-600 max-w-md">
                   {item.desc}
                 </p>
 
-                <div className="mt-6 flex gap-6 text-sm text-gray-600">
+                <div className="mt-6 flex gap-4 text-sm">
                   {item.features.map((f, i) => (
                     <span
                       key={i}
@@ -227,13 +201,7 @@ const PopularResidences = () => {
                   <span className="text-2xl font-semibold text-primary">
                     {item.price}
                   </span>
-
-                  <button
-                    className="px-7 py-3 bg-primary text-white rounded-full
-                    transition-all duration-300
-                    hover:scale-105 hover:shadow-xl
-                    active:scale-95"
-                  >
+                  <button className="px-7 py-3 bg-primary text-white rounded-full hover:scale-105 transition">
                     View Details
                   </button>
                 </div>
@@ -241,6 +209,7 @@ const PopularResidences = () => {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
