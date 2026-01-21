@@ -85,7 +85,7 @@ const Footer = () => {
           <div ref={(el) => (colsRef.current[0] = el)}>
             <h4 className="font-semibold mb-6">Company</h4>
             <ul className="space-y-3 text-sm text-white/80">
-              {["About Us", "Properties", "Agents", "Blog", "Careers"].map(
+              {["About Us", "Properties", "Agents", "Blog", "Our Team"].map(
                 (item, i) => (
                   <li
                     key={i}
@@ -117,7 +117,7 @@ const Footer = () => {
           {/* CENTER */}
           <div
             ref={(el) => (colsRef.current[1] = el)}
-            className="text-center"
+            className="text-center border border-white/10 p-5"
           >
             <h3 className="text-2xl font-semibold mb-3">
               Get Updates
@@ -170,7 +170,7 @@ const Footer = () => {
               Chestnut Ridge, NY 10977
             </p>
 
-            <div className="mt-10 inline-block px-5 py-2 border border-white/40 rounded-full text-xs">
+            <div className="mt-10 inline-block px-5 py-2 border border-white/40 rounded-full text-xs bg-white/10 hover:bg-white/20 transition cursor-pointer">
               Trusted Real Estate Partner
             </div>
           </div>

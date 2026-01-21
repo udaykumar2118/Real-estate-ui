@@ -25,14 +25,13 @@ const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 w-full z-50 bg-light/80 backdrop-blur-md"
-    >
+      className="fixed top-0 left-0 w-full z-50 bg-light/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <h1 className="text-2xl font-bold text-primary">Dwello</h1>
 
         {/* Menu */}
-        <nav className="hidden md:flex gap-8 text-sm font-medium text-dark">
+        <nav className="md:flex gap-8 text-sm font-medium text-dark hidden ">
           <a className="cursor-pointer hover:text-secondary">Home</a>
           <a className="cursor-pointer hover:text-secondary">Service</a>
           <a className="cursor-pointer hover:text-secondary">Agents</a>

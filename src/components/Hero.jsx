@@ -85,7 +85,7 @@ const Hero = () => {
             <img
               src={POSTER_URL}
               alt="Luxury Home"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute bg-POSTER_URL inset-0 w-full h-full object-cover"
             />
           )}
 
