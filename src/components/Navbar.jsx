@@ -33,12 +33,9 @@ const Navbar = () => {
         </nav>
 
         {/* Button */}
-        <Link
-          to="/contact"
-          className="px-5 py-2 bg-primary text-white rounded-full text-sm"
-        >
+         <button className="px-5 py-2 bg-primary text-white rounded-full text-sm">
           Sign up
-        </Link>
+        </button>
       </div>
     </header>
   );
