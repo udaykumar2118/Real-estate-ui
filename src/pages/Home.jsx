@@ -20,7 +20,6 @@ const Home = () => {
       <PropertySupport />
       <PopularResidences />
       <Testimonials />
-      <ContactCTA />
       <Footer />
     </>
   );

@@ -16,3 +16,12 @@ export default {
   },
   plugins: [],
 };
+theme: {
+  extend: {
+    colors: {
+      primary: "#233C3B",
+      light: "#F5F0E6",
+      dark: "#1E1E1E",
+    },
+  },
+},

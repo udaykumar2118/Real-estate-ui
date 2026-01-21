@@ -12,31 +12,41 @@ const Footer = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      // Instagram images reveal
-      gsap.from(instaRef.current, {
-        y: 30,
-        opacity: 0,
-        stagger: 0.12,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: "top 85%",
-        },
-      });
+      // Instagram images
+      gsap.fromTo(
+        instaRef.current,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.12,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
 
-      // Footer columns reveal
-      gsap.from(colsRef.current, {
-        y: 40,
-        opacity: 0,
-        stagger: 0.18,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: "top 75%",
-        },
-      });
+      // Footer columns
+      gsap.fromTo(
+        colsRef.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.18,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 90%",
+            once: true,
+          },
+        }
+      );
 
     }, footerRef);
 
@@ -101,12 +111,9 @@ const Footer = () => {
               {["f", "in", "ig"].map((icon, i) => (
                 <div
                   key={i}
-                  className="
-                    w-9 h-9 border border-white/30 rounded-full
-                    flex items-center justify-center
-                    cursor-pointer transition-all duration-300
-                    hover:bg-white hover:text-[#23413D] hover:scale-110
-                  "
+                  className="w-9 h-9 border border-white/30 rounded-full
+                  flex items-center justify-center cursor-pointer
+                  hover:bg-white hover:text-[#23413D] transition"
                 >
                   {icon}
                 </div>
@@ -123,30 +130,23 @@ const Footer = () => {
               Get Updates
             </h3>
             <p className="text-white/70 text-sm mb-8">
-              Subscribe to our newsletter to receive latest listings and
-              exclusive offers.
+              Subscribe to our newsletter to receive latest listings.
             </p>
 
             <div className="space-y-4 max-w-sm mx-auto">
               <input
                 type="email"
                 placeholder="Email address"
-                className="
-                  w-full px-4 py-3 rounded-lg bg-transparent
-                  border border-white/40
-                  placeholder:text-white/60
-                  focus:outline-none focus:border-white
-                "
+                className="w-full px-4 py-3 rounded-lg bg-transparent
+                border border-white/40 placeholder:text-white/60
+                focus:outline-none focus:border-white"
               />
               <input
                 type="text"
                 placeholder="First name"
-                className="
-                  w-full px-4 py-3 rounded-lg bg-transparent
-                  border border-white/40
-                  placeholder:text-white/60
-                  focus:outline-none focus:border-white
-                "
+                className="w-full px-4 py-3 rounded-lg bg-transparent
+                border border-white/40 placeholder:text-white/60
+                focus:outline-none focus:border-white"
               />
               <button className="w-full bg-white text-[#23413D] py-3 rounded-lg font-medium hover:bg-gray-100 transition">
                 Sign Up
@@ -170,7 +170,8 @@ const Footer = () => {
               Chestnut Ridge, NY 10977
             </p>
 
-            <div className="mt-10 inline-block px-5 py-2 border border-white/40 rounded-full text-xs bg-white/10 hover:bg-white/20 transition cursor-pointer">
+            <div className="mt-10 inline-block px-5 py-2 border border-white/40
+            rounded-full text-xs bg-white/10 hover:bg-white/20 transition">
               Trusted Real Estate Partner
             </div>
           </div>
