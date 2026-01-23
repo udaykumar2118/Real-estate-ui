@@ -30,6 +30,7 @@ const Navbar = () => {
           <Link to="/" className="hover:text-secondary">Home</Link>
           <Link to="/about" className="hover:text-secondary">About</Link>
           <Link to="/contact" className="hover:text-secondary">Contact</Link>
+          <Link to="/booking" className="hover:text-secondary">Booking</Link>
         </nav>
 
         {/* Button */}
