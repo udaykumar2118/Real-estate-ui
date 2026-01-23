@@ -167,7 +167,7 @@ const Booking = () => {
                 }`}
               >
                 {/* IMAGE */}
-                <div className="overflow-hidden rounded-3xl shadow-xl">
+                <div className="overflow-hidden rounded-3xl">
                   <img
                     src={room.image}
                     alt={room.title}
