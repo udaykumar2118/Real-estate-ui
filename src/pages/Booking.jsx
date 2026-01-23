@@ -171,7 +171,7 @@ const Booking = () => {
                   <img
                     src={room.image}
                     alt={room.title}
-                    className="room-image w-full h-[360px] object-cover transition-transform duration-[3500ms] hover:scale-110"
+                    className="room-image w-full h-[360px] object-cover hover:scale-110"
                   />
                 </div>
 
