@@ -157,7 +157,7 @@ const Booking = () => {
 
         {/* ROOMS */}
         <section className="py-28">
-          <div className="max-w-7xl mx-auto px-6 space-y-24">
+          <div className="max-w-7xl mx-auto px-6 space-y-24 p-6">
 
             {rooms.map((room, index) => (
               <div
